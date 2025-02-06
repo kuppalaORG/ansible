@@ -1,0 +1,2 @@
+web_root: /var/www/html
+nginx_conf: /etc/nginx/nginx.conf
