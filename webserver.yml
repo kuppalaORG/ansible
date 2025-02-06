@@ -1,34 +1,6 @@
 - name: SetUp Web Server (Nginx + PHP + Mysql)
   hosts: web_servers
   become: true
-  vars_files:
-    - vars.yml
-  tasks:
-    - name: Install Required Packages
-      apt:
-        name: '{{ item }}'
-        state: present
-        update_cache: 'yes'
-      loop:
-        - nginx
-        - php
-        - php-fpm
-        - php-mysql
-        - mysql-server
+  roles:
+    - webserver
 
-    - name: Start and enable Services
-      systemd:
-        name: '{{ item }}'
-        state: started
-        enabled: yes
-      loop:
-        - nginx
-        - mysql
-
-    - name: Copy index.html template
-      template:
-        src: templates/index.html
-        dest: /var/www/html/index.html
-      notify: Restart Nginx
-  handlers:
-    - import_tasks: handlers.yml

@@ -1,0 +1,28 @@
+---
+# tasks file for webserver
+- name: Install Required Packages
+  apt:
+    name: '{{ item }}'
+    state: present
+    update_cache: 'yes'
+  loop:
+    - nginx
+    - php
+    - php-fpm
+    - php-mysql
+    - mysql-server
+
+- name: Start and enable Services
+  systemd:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+  loop:
+    - nginx
+    - mysql
+
+- name: Copy index.html template
+  template:
+    src: templates/index.html
+    dest: "{{ web_root }}index.html"
+  notify: Restart Nginx
