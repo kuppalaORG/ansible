@@ -24,5 +24,5 @@
 - name: Copy index.html template
   template:
     src: templates/index.html
-    dest: "{{ web_root }}index.html"
+    dest: "{{ web_root }}/index.html"
   notify: Restart Nginx
