@@ -31,7 +31,4 @@
         dest: /var/www/html/index.html
       notify: Restart Nginx
   handlers:
-    - name: Restart Nginx
-      systemd:
-        name: nginx
-        state: restarted
+    - import_tasks: handlers.yml
